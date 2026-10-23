@@ -14,7 +14,9 @@ import pytest
 from ai_document_intelligence.services.document_service import ingest_document
 
 mock_vector_store = Mock()
+mock_llm = Mock()
 app.state.vector_store = mock_vector_store
+app.state.llm = mock_llm
 
 client = TestClient(app)
 
@@ -194,7 +196,7 @@ def test_ask_question_success():
     ) as mock_search, patch(
         "ai_document_intelligence.api.routes.documents.generate_answer",
         return_value="Docker is a platform for containerizing applications."
-    ) as mock_llm:
+    ) as mock_generate_answer:
 
         response = client.post(
             f"/documents/{document_id}/ask",
@@ -210,10 +212,11 @@ def test_ask_question_success():
         top_k=3,
         vector_store=mock_vector_store
     )
-    mock_llm.assert_called_once()
-    mock_llm.assert_called_once_with(
+    mock_generate_answer.assert_called_once()
+    mock_generate_answer.assert_called_once_with(
         question=question,
         search_results=mock_results,
+        llm = mock_llm
     )
     assert len(response.json()["sources"]) == 1
 

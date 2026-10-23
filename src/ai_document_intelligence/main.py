@@ -10,6 +10,7 @@ from ai_document_intelligence.exceptions import DocumentNotFoundError
 from contextlib import asynccontextmanager
 
 from ai_document_intelligence.core.resources import create_vector_store
+from ai_document_intelligence.core.llm_factory import create_llm
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +29,14 @@ async def lifespan(app: FastAPI):
         raise
 
     logger.info("Vector store initialized successfully")
+
+    try:
+        app.state.llm = create_llm()
+    except Exception:
+        logger.exception("Failed to initialize LLM")
+        raise
+
+    logger.info("LLM initialized successfully")
 
     try:
         yield

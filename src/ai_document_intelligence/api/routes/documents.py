@@ -93,7 +93,8 @@ def ask_question(document_id: str, request:Request, payload: AskQuestionRequest)
 
     answer = generate_answer(
         question=payload.question,
-        search_results=search_results
+        search_results=search_results,
+        llm=request.app.state.llm
     )
 
     sources = [

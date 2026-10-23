@@ -11,3 +11,10 @@ wheels/
 
 # Environment variables
 .env
+
+# Local databases and uploads
+chroma_multi_db/
+uploads/
+chroma_db/
+
+gitleaks-report.json

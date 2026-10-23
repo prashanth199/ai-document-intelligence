@@ -21,7 +21,6 @@ name = "ai-document-intelligence"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
-    { name = "deepeval" },
     { name = "fastapi", extra = ["standard"] },
     { name = "langchain" },
     { name = "langchain-anthropic" },
@@ -35,19 +34,19 @@ dependencies = [
     { name = "pypdf" },
     { name = "python-dotenv" },
     { name = "python-multipart" },
-    { name = "ragas" },
     { name = "sentence-transformers" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "deepeval" },
     { name = "httpx2" },
     { name = "pytest" },
+    { name = "ragas" },
 ]
 
 [package.metadata]
 requires-dist = [
-    { name = "deepeval", specifier = ">=4.2.8" },
     { name = "fastapi", extras = ["standard"], specifier = ">=0.141.1" },
     { name = "langchain", specifier = ">=1.4.2" },
     { name = "langchain-anthropic", specifier = ">=1.7.4" },
@@ -61,14 +60,15 @@ requires-dist = [
     { name = "pypdf", specifier = ">=6.19.0" },
     { name = "python-dotenv", specifier = ">=1.2.3" },
     { name = "python-multipart", specifier = ">=0.0.32" },
-    { name = "ragas", specifier = ">=0.4.3" },
     { name = "sentence-transformers", specifier = ">=6.1.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "deepeval", specifier = ">=4.2.8" },
     { name = "httpx2", specifier = ">=2.13.1" },
     { name = "pytest", specifier = ">=9.1.1" },
+    { name = "ragas", specifier = ">=0.4.3" },
 ]
 
 [[package]]

@@ -1,0 +1,19 @@
+services:
+  api:
+    image: ai-document-intelligence:latest
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      LLM_PROVIDER: groq
+      CHROMA_PERSIST_DIRECTORY: /app/data/chroma
+      HF_HOME: /app/data/huggingface
+    volumes:
+      - chroma_data:/app/data/chroma
+      - huggingface_cache:/app/data/huggingface
+
+volumes:
+  chroma_data:
+  huggingface_cache:

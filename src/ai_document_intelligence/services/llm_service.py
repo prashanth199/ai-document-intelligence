@@ -1,13 +1,14 @@
 
 # from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_core.prompts import ChatPromptTemplate
-from dotenv import load_dotenv
+from langchain_core.language_models import BaseChatModel
+# from dotenv import load_dotenv
 
-from langchain_ollama import ChatOllama
+# from langchain_ollama import ChatOllama
 
 
 
-load_dotenv()
+# load_dotenv()
 
 # llm = HuggingFaceEndpoint(
 #     repo_id="Qwen/Qwen3.8-27B",
@@ -18,16 +19,9 @@ load_dotenv()
 
 # chat_model = ChatHuggingFace(llm=llm)
 
-chat_model = ChatOllama(
-    model="qwen3",
-    temperature=0,
-    num_ctx=2048,
-    num_predict=256,
-    reasoning=False
-)
 
 
-def generate_answer(question: str, search_results: list[dict]) -> str:
+def generate_answer(question: str, search_results: list[dict],llm: BaseChatModel) -> str:
 
     if not search_results:
         return "I don't know."
@@ -62,7 +56,7 @@ def generate_answer(question: str, search_results: list[dict]) -> str:
         ),
     ])
 
-    chain = prompt | chat_model
+    chain = prompt | llm
 
     response = chain.invoke({
         "context": context,
